@@ -144,14 +144,37 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 
-# Add these CKEditor 5 settings
+# CKEditor 5 settings
 CKEDITOR_5_CONFIGS = {
     'default': {
-        'toolbar': ['heading', '|', 'bold', 'italic', 'link',
-                   'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', '|',
+        'toolbar': ['heading', '|',
+                   'bold', 'italic', 'link',
+                   'bulletedList', 'numberedList', 'blockQuote', '|',
+                   'codeBlock', 'code', '|',
+                   'imageUpload', '|',
                    'undo', 'redo'],
-        'height': '400px',
-        'width': '100%',
+        'blockToolbar': [
+                'paragraph', 'codeBlock'
+            ],
+        'heading': {
+            'options': [
+                {'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph'},
+                {'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1'},
+                {'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2'},
+            ],
+
+        },
+        'codeBlock': {
+            'languages': [
+                {'language': 'plaintext', 'label': 'Plain text'},
+                {'language': 'python', 'label': 'Python'},
+                {'language': 'javascript', 'label': 'JavaScript'},
+                {'language': 'css', 'label': 'CSS'},
+                {'language': 'html', 'label': 'HTML'},
+                {'language': 'sql', 'label': 'SQL'},
+                {'language': 'bash', 'label': 'Bash'}
+            ]
+        },
     }
 }
 

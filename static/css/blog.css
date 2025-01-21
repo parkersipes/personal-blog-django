@@ -122,27 +122,32 @@ body{
 }
 
 
-/* Materialize Select Dropdown styling */
 .select-wrapper .dropdown-content {
     max-height: 250px !important; /* Adjust height as needed */
     overflow-y: auto !important;
     backface-visibility: hidden;
 }
 
-/* Optional: Style the scrollbar */
-.select-wrapper .dropdown-content::-webkit-scrollbar {
-    width: 4px;
+
+/* Code block styling */
+pre[class*="language-"] {
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
+    color: #383a42;  /* Base text color */
+    background: #fafafa;  /* Background color */
 }
 
-.select-wrapper .dropdown-content::-webkit-scrollbar-track {
-    background: #f1f1f1;
+code[class*="language-"] {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+
 }
 
-.select-wrapper .dropdown-content::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px;
-}
-
-.select-wrapper .dropdown-content::-webkit-scrollbar-thumb:hover {
-    background: #555;
+:not(pre) > code {
+    background: #f5f5f5;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9em;
 }
