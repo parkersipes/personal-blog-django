@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <br>
+<!-- Filter Toggle Button -->
+<div class="row">
+    <div class="col s12">
+        <button class="btn waves-effect waves-light teal" type="button" onclick="toggleFilters()">
+            <i class="material-icons left">filter_list</i>
+            Blog Filters
+        </button>
+    </div>
+</div>
+
+<!-- Filtering Section -->
+<div class="row" id="filter-section" style="display: none;">
+    <div class="col s12">
+        <div class="card">
+            <div class="card-content">
+                <form method="get" id="filter-form">
+                    <div class="row mb-0"> <!-- Remove bottom margin -->
+                        <!-- Topic Filter -->
+                        <div class="input-field col s12 m3">
+                            <select name="topic" id="topic-select">
+                                <option value="" {% if not request.GET.topic %}selected{% endif %}>All Topics</option>
+                                {% for topic_value, topic_label in topics %}
+                                    <option value="{{ topic_value }}" {% if request.GET.topic == topic_value %}selected{% endif %}>
+                                        {{ topic_label }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <label>Topic</label>
+                        </div>
+
+                        <!-- Sort Options -->
+                        <div class="input-field col s12 m3">
+                            <select name="sort" id="sort-select">
+                                <option value="-created_date" {% if request.GET.sort == '-created_date' %}selected{% endif %}>Newest First</option>
+                                <option value="created_date" {% if request.GET.sort == 'created_date' %}selected{% endif %}>Oldest First</option>
+                                <option value="title" {% if request.GET.sort == 'title' %}selected{% endif %}>Title (A-Z)</option>
+                                <option value="-title" {% if request.GET.sort == '-title' %}selected{% endif %}>Title (Z-A)</option>
+                            </select>
+                            <label>Sort By</label>
+                        </div>
+
+                        <!-- Date Range -->
+                        <div class="input-field col s6 m3">
+                            <input type="date" id="start_date" name="start_date"
+                                   value="{{ request.GET.start_date }}">
+                            <label for="start_date">Start Date</label>
+                        </div>
+                        <div class="input-field col s6 m3">
+                            <input type="date" id="end_date" name="end_date"
+                                   value="{{ request.GET.end_date }}">
+                            <label for="end_date">End Date</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s12">
+                            <button class="btn waves-effect waves-light teal" type="submit">
+                                Apply
+                                <i class="material-icons right">check</i>
+                            </button>
+                            <a href="{% url 'blog:post_list' %}" class="btn waves-effect waves-light grey">
+                                Clear
+                                <i class="material-icons right">clear</i>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Posts Grid -->
+    <div class="row blog-list">
+        {% for post in posts %}
+            <div class="col s12 m4">
+                <div class="card small">
+                    <div class="card-image">
+                        {% if post.featured_image %}
+                            <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                        {% endif %}
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title">{{ post.title }}</span>
+                        <p>{{ post.excerpt }}</p>
+                        <div class="card-meta">
+                            <small class="grey-text">
+                                {{ post.created_date|date:"F d, Y" }}
+                                {% if post.topic %}
+                                    • {{ post.get_topic_display }}
+                                {% endif %}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <a href="{% url 'blog:post_detail' post.slug %}" class="teal-text">Read More</a>
+                        {% if user == post.author %}
+                            <a href="{% url 'blog:post_update' post.slug %}" class="amber-text">Edit</a>
+                            <a href="{% url 'blog:post_delete' post.slug %}" class="red-text">Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col s12">
+                <div class="card-panel">
+                    <p>No posts found matching your criteria.</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+        <ul class="pagination center-align">
+            {% if page_obj.has_previous %}
+                <li class="waves-effect">
+                    <a href="?page=1{% if request.GET.topic %}&topic={{ request.GET.topic }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">
+                        <i class="material-icons">first_page</i>
+                    </a>
+                </li>
+                <li class="waves-effect">
+                    <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.topic %}&topic={{ request.GET.topic }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">
+                        <i class="material-icons">chevron_left</i>
+                    </a>
+                </li>
+            {% endif %}
+
+            <li class="active teal">
+                <a href="#!">{{ page_obj.number }}</a>
+            </li>
+
+            {% if page_obj.has_next %}
+                <li class="waves-effect">
+                    <a href="?page={{ page_obj.next_page_number }}{% if request.GET.topic %}&topic={{ request.GET.topic }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">
+                        <i class="material-icons">chevron_right</i>
+                    </a>
+                </li>
+                <li class="waves-effect">
+                    <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.topic %}&topic={{ request.GET.topic }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">
+                        <i class="material-icons">last_page</i>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+</div>
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Materialize select
+        var selects = document.querySelectorAll('select');
+        M.FormSelect.init(selects);
+
+        // Initialize datepickers if needed
+        var datepickers = document.querySelectorAll('.datepicker');
+        M.Datepicker.init(datepickers);
+
+        // Show filter section if any filters are applied
+        if (window.location.search.length > 1) {
+            document.getElementById('filter-section').style.display = 'block';
+        }
+    });
+
+    function toggleFilters() {
+        var filterSection = document.getElementById('filter-section');
+        if (filterSection.style.display === 'none') {
+            filterSection.style.display = 'block';
+        } else {
+            filterSection.style.display = 'none';
+        }
+    }
+</script>
+{% endblock %}
+{% endblock %}
