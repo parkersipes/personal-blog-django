@@ -175,6 +175,9 @@ CKEDITOR_5_CONFIGS = {
                 {'language': 'bash', 'label': 'Bash'}
             ]
         },
+        'css': {
+            'theme': 'dark'
+        }
     }
 }
 

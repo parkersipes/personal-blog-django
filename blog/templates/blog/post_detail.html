@@ -1,39 +1,49 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="section">
-    <div class="row">
-        <div class="col s12">
-            <div class="card">
-                {% if post.featured_image %}
-                    <div class="card-image">
-                        <img id="blog-detail-img" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
-                    </div>
-                {% endif %}
-                <div class="card-content">
-                    <h2 class="card-title">{{ post.title }}</h2>
-                    <p class="grey-text">
-                        Posted by {{ post.author }} on {{ post.created_date|date:"F d, Y" }}
-                    </p>
+<article class="container">
+    <div class="card shadow-sm bg-dark text-white">
+        {% if post.featured_image %}
+            <img src="{{ post.featured_image.url }}"
+                 class="card-img-top"
+                 alt="{{ post.title }}"
+                 style="max-height: 400px; object-fit: cover;">
+        {% endif %}
 
-                    <div class="blog-content">
-                    {{ post.content|safe }}
-                    </div>
-                </div>
-                {% if user.is_authenticated and user == post.author %}
-                <div class="card-action">
-                    <a href="{% url 'blog:post_update' post.slug %}" class="btn waves-effect waves-light amber">
-                    Edit
-                    <i class="material-icons right">edit</i>
-                    </a>
-                    <a href="{% url 'blog:post_delete' post.slug %}" class="btn waves-effect waves-light red">
-                    Delete
-                    <i class="material-icons right">delete</i>
-                    </a>
-                </div>
+        <div class="card-body">
+            <h1 class="card-title display-4 mb-3">{{ post.title }}</h1>
+
+            <div class="d-flex align-items-center mb-4">
+                <span class="text-muted me-3">{{ post.created_date|date:"F d, Y" }}</span>
+                {% if post.topic %}
+                    <span class="badge bg-primary">{{ post.get_topic_display }}</span>
                 {% endif %}
             </div>
+
+            <!-- Post Content -->
+            <div class="blog-content">
+                {{ post.content|safe }}
+            </div>
+
+            <!-- Author Actions -->
+            {% if user == post.author %}
+                <div class="mt-4 pt-3 border-top">
+                    <a href="{% url 'blog:post_update' post.slug %}" class="btn btn-warning">
+                        Edit Post
+                    </a>
+                    <a href="{% url 'blog:post_delete' post.slug %}" class="btn btn-danger">
+                        Delete Post
+                    </a>
+                </div>
+            {% endif %}
         </div>
     </div>
-</div>
+
+    <!-- Back to Blog -->
+    <div class="mt-4">
+        <a href="{% url 'blog:post_list' %}" class="btn btn-outline-primary">
+            ← Back to Blog
+        </a>
+    </div>
+</article>
 {% endblock %}
