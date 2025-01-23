@@ -20,7 +20,7 @@ class PostForm(forms.ModelForm):
                 'class': 'form-select bg-dark text-white'
             }),
             'content': CKEditor5Widget(
-                attrs={'class': 'django_ckeditor_5'},
-                config_name='default'
-            ),
+            attrs={'class': 'django_ckeditor_5', 'style': 'width: 100%;'},
+            config_name='default'
+),
         }

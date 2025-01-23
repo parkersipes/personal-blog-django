@@ -150,34 +150,16 @@ CKEDITOR_5_CONFIGS = {
         'toolbar': ['heading', '|',
                    'bold', 'italic', 'link',
                    'bulletedList', 'numberedList', 'blockQuote', '|',
+                   'imageUpload', 'imageStyle:inline', 'imageStyle:block', 'imageStyle:side', '|',
                    'codeBlock', 'code', '|',
-                   'imageUpload', '|',
                    'undo', 'redo'],
-        'blockToolbar': [
-                'paragraph', 'codeBlock'
-            ],
-        'heading': {
-            'options': [
-                {'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph'},
-                {'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1'},
-                {'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2'},
-            ],
-
+        'image': {
+            'styles': ['full', 'alignLeft', 'alignRight'],
+            'toolbar': ['imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight'],
         },
-        'codeBlock': {
-            'languages': [
-                {'language': 'plaintext', 'label': 'Plain text'},
-                {'language': 'python', 'label': 'Python'},
-                {'language': 'javascript', 'label': 'JavaScript'},
-                {'language': 'css', 'label': 'CSS'},
-                {'language': 'html', 'label': 'HTML'},
-                {'language': 'sql', 'label': 'SQL'},
-                {'language': 'bash', 'label': 'Bash'}
-            ]
-        },
-        'css': {
-            'theme': 'dark'
-        }
+        'height': '400px',
+        'width': '100%',
+        'removePlugins': ['Title', 'Markdown'],
     }
 }
 

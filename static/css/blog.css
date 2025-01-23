@@ -1,142 +1,124 @@
-
-body{
+/* Typography */
+body {
     font-family: "Poppins", serif;
 }
 
-.poppins-light {
-  font-family: "Poppins", serif;
-  font-weight: 300;
-  font-style: normal;
+[class*="poppins-"] {
+    font-family: "Poppins", serif;
+    font-style: normal;
 }
 
-.poppins-regular {
-  font-family: "Poppins", serif;
-  font-weight: 400;
-  font-style: normal;
+.poppins-light { font-weight: 300; }
+.poppins-regular { font-weight: 400; }
+.poppins-medium { font-weight: 500; }
+.poppins-semibold { font-weight: 600; }
+.poppins-bold { font-weight: 700; }
+.poppins-extrabold { font-weight: 800; }
+
+/* Dark Theme Colors */
+:root {
+    --dark-bg: #212529;
+    --dark-surface: #2b3035;
+    --dark-border: #373b3e;
+    --dark-text: #fff;
+    --dark-text-muted: #adb5bd;
 }
 
-.poppins-medium {
-  font-family: "Poppins", serif;
-  font-weight: 500;
-  font-style: normal;
-}
-
-.poppins-semibold {
-  font-family: "Poppins", serif;
-  font-weight: 600;
-  font-style: normal;
-}
-
-.poppins-bold {
-  font-family: "Poppins", serif;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.poppins-extrabold {
-  font-family: "Poppins", serif;
-  font-weight: 800;
-  font-style: normal;
-}
-
-/* Dark theme for blog content */
+/* Card Styling */
 .card {
-    background-color: #2b3035 !important;
-    border-color: #373b3e !important;
+    background-color: var(--dark-surface) !important;
+    border-color: var(--dark-border) !important;
 }
 
-/* CKEditor content styling for dark theme */
-.ck.ck-editor__main>.ck-editor__editable {
-    background-color: #2b3035 !important;
-    color: #fff !important;
+/* Form Controls */
+.form-control, .form-select {
+    background-color: var(--dark-bg) !important;
+    border-color: var(--dark-border) !important;
+    color: var(--dark-text) !important;
 }
 
-.ck.ck-editor__main>.ck-editor__editable:focus {
+.form-control:focus {
+    background-color: var(--dark-surface) !important;
     border-color: #0d6efd !important;
 }
 
-/* Style for the blog post content */
+/* Blog Content */
 .blog-content {
-    color: #fff !important;
+    color: var(--dark-text) !important;
 }
 
 .blog-content h1, .blog-content h2, .blog-content h3 {
-    color: #fff !important;
+    color: var(--dark-text) !important;
 }
 
 .blog-content p {
     color: #e9ecef !important;
 }
 
-/* Code block styling */
+/* Image Handling */
+.blog-content img,
+.ck-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+}
+
+.image-style-align-left,
+.ck-content .image-style-align-left {
+    float: left;
+    margin-right: 20px;
+    max-width: 50%;
+}
+
+.image-style-align-right,
+.ck-content .image-style-align-right {
+    float: right;
+    margin-left: 20px;
+    max-width: 50%;
+}
+
+.image-style-align-center,
+.ck-content .image-style-align-center {
+    margin: 1rem auto;
+    display: block;
+}
+
+/* Clear floats */
+.blog-content::after,
+.ck-content::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* CKEditor Styling */
+.ck.ck-editor__main>.ck-editor__editable {
+    background-color: var(--dark-surface) !important;
+    color: var(--dark-text) !important;
+    min-height: 400px;
+}
+
+.ck.ck-toolbar {
+    background-color: var(--dark-bg) !important;
+    border-color: var(--dark-border) !important;
+}
+
+.ck.ck-toolbar .ck-button {
+    color: var(--dark-text) !important;
+}
+
+/* Code Blocks */
 .blog-content pre {
-    background-color: #1a1d20 !important;
-    border: 1px solid #373b3e;
+    background-color: var(--dark-bg) !important;
+    border: 1px solid var(--dark-border);
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
 }
 
 .blog-content code {
     color: #e83e8c !important;
-    background-color: #1a1d20 !important;
-}
-
-/* Link styling */
-.blog-content a {
-    color: #0d6efd !important;
-}
-
-.blog-content a:hover {
-    color: #0a58ca !important;
-}
-
-/* Form controls in dark theme */
-.form-control {
-    background-color: #1a1d20 !important;
-    border-color: #373b3e !important;
-    color: #fff !important;
-}
-
-.form-control:focus {
-    background-color: #2b3035 !important;
-    border-color: #0d6efd !important;
-    color: #fff !important;
-}
-
-/* Select boxes in dark theme */
-.form-select {
-    background-color: #1a1d20 !important;
-    border-color: #373b3e !important;
-    color: #fff !important;
-}
-
-/* Placeholder text */
-::placeholder {
-    color: #6c757d !important;
-    opacity: 1;
-}
-
-/* Post cards in dark theme */
-.card-text {
-    color: #e9ecef !important;
-}
-
-.text-muted {
-    color: #adb5bd !important;
-}
-
-/* Fix CKEditor toolbar contrast */
-.ck.ck-toolbar {
-    background-color: #1a1d20 !important;
-    border-color: #373b3e !important;
-}
-
-.ck.ck-toolbar .ck-button {
-    color: #fff !important;
-}
-
-.ck.ck-toolbar .ck-button:hover {
-    background-color: #2b3035 !important;
-}
-
-.ck.ck-toolbar .ck-on {
-    background-color: #0d6efd !important;
+    background-color: var(--dark-bg) !important;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
 }

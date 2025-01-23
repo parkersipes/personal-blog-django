@@ -26,6 +26,8 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('about/', TemplateView.as_view(template_name='blog/about.html'), name='about'),
+    path('projects_and_portfolio/', TemplateView.as_view(template_name='blog/projects_and_portfolio.html'), name='projects_and_portfolio'),
+    path('site_metrics/', TemplateView.as_view(template_name='blog/site_metrics.html'), name='site_metrics'),
     path('', TemplateView.as_view(template_name='blog/home.html'), name='home'),
     path('blog/', include('blog.urls', namespace='blog')),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
